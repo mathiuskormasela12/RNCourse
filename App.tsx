@@ -1,7 +1,7 @@
 // ========= App
 // import all packages
 import React, { useState } from 'react'
-import { Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, FlatList, StyleSheet, Text, TextInput, View, Pressable } from 'react-native'
 
 interface IGoals {
   text: string
@@ -67,7 +67,9 @@ const App: React.FC = () => {
           keyExtractor={(item, index) => item.uuid}
           renderItem={({ item, index: _index }) => (
             <View style={styles.card}>
-              <Text style={styles.cardText}>{item.text}</Text>
+              <Pressable android_ripple={{ color: 'red' }} style={({ pressed }) => pressed && styles.pressed}>
+                <Text style={styles.cardText}>{item.text}</Text>
+              </Pressable>
             </View>
           )}
         />
@@ -119,13 +121,16 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: 'hsl(204, 86%, 53%)',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
     borderRadius: 7,
     marginBottom: 15
   },
   cardText: {
     color: 'white',
-    fontSize: 16
+    fontSize: 16,
+    paddingHorizontal: 15,
+    paddingVertical: 15
+  },
+  pressed: {
+    backgroundColor: 'red'
   }
 })
